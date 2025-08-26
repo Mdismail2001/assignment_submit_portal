@@ -1,29 +1,14 @@
 import React from "react";
 
 const TeacherAssTable = () => {
+  // Get assignments from localStorage
+  const assignments = JSON.parse(localStorage.getItem("assignments")) || [];
+
   const columns = [
     { label: "Title", key: "title" },
     { label: "Deadline", key: "deadline" },
     { label: "Submissions", key: "submissions" },
     { label: "Action", key: "action" },
-  ];
-
-  const rows = [
-    {
-      title: "Math Homework 1",
-      deadline: "2025-08-20",
-      submissions: "15/20",
-    },
-    {
-      title: "Science Project",
-      deadline: "2025-08-25",
-      submissions: "12/18",
-    },
-    {
-      title: "History Essay",
-      deadline: "2025-08-30",
-      submissions: "20/22",
-    },
   ];
 
   return (
@@ -50,30 +35,41 @@ const TeacherAssTable = () => {
 
         {/* Body */}
         <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-          {rows.map((row, rowIndex) => (
-            <tr
-              key={rowIndex}
-              className="bg-white hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
-            >
-              <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-200">
-                {row.title}
-              </td>
-              <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-200">
-                {row.deadline}
-              </td>
-              <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-200">
-                {row.submissions}
-              </td>
-              <td className="px-6 py-4 flex gap-2">
-                <button className="px-3 py-1 text-sm bg-green-600 text-white rounded-lg hover:bg-green-700">
-                  Edit
-                </button>
-                <button className="px-3 py-1 text-sm bg-red-600 text-white rounded-lg hover:bg-red-700">
-                  Delete
-                </button>
+          {assignments.length > 0 ? (
+            assignments.map((row, rowIndex) => (
+              <tr
+                key={rowIndex}
+                className="bg-white hover:bg-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700"
+              >
+                <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-200">
+                  {row.title}
+                </td>
+                <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-200">
+                  {row.deadline}
+                </td>
+                <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-200">
+                  {row.submissions || "0/0"}
+                </td>
+                <td className="px-6 py-4 flex gap-2">
+                  <button className="px-3 py-1 text-sm bg-green-600 text-white rounded-lg hover:bg-green-700">
+                    Edit
+                  </button>
+                  <button className="px-3 py-1 text-sm bg-red-600 text-white rounded-lg hover:bg-red-700">
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td
+                colSpan={4}
+                className="px-6 py-4 text-center text-gray-500 dark:text-gray-400"
+              >
+                No assignments found.
               </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>

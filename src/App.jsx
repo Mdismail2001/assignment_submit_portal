@@ -27,6 +27,7 @@ import DashboardOverview from './components/dashboard/Teachers/DashboardOverview
 import AssignmentCreate from './components/dashboard/Teachers/AssignmentCreate.jsx';
 import TotalAssignments from './components/sharedComponents/TotalAssignments.jsx';
 import TotalSubmission from './components/dashboard/Teachers/TotalSubmission.jsx';
+import Home from './components/home/Home.jsx';
 
 
 function App() {
@@ -35,7 +36,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<h1 className="text-3xl font-bold underline">Assignment Submit Portal</h1>} />
+          <Route path="/" element={<Home/>} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Registration/>} />
           <Route path="/header" element={<Header/>} />
