@@ -28,6 +28,8 @@ import AssignmentCreate from './components/dashboard/Teachers/AssignmentCreate.j
 import TotalAssignments from './components/sharedComponents/TotalAssignments.jsx';
 import TotalSubmission from './components/dashboard/Teachers/TotalSubmission.jsx';
 import Home from './components/home/Home.jsx';
+import Edit from './components/dashboard/Teachers/Edit.jsx';
+import Delete from './components/dashboard/Teachers/Delete.jsx';
 
 
 function App() {
@@ -47,6 +49,8 @@ function App() {
           <Route path="/teacher-dashboard" element={<TeacherDash/>}>
             <Route path='' element={<DashboardOverview/>}/>
             <Route path='ass-table' element={<TeacherAssTable/>}/>
+            <Route path="ass-table/edit/:id" element={<Edit/>}/> 
+            <Route path="ass-table/delete/:id" element={<Delete/>}/> 
             <Route path='review-panel' element={<ReviewPanel/>}/>
             <Route path='pie' element={<PieChart/>} />
             <Route path='create' element={<AssignmentCreate/>}/>

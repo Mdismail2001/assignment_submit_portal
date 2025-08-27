@@ -1,6 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const TeacherAssTable = () => {
+  const navigate = useNavigate();
+
   // Get assignments from localStorage
   const assignments = JSON.parse(localStorage.getItem("assignments")) || [];
 
@@ -10,6 +13,17 @@ const TeacherAssTable = () => {
     { label: "Submissions", key: "submissions" },
     { label: "Action", key: "action" },
   ];
+
+  // Navigate to edit page with assignment id (or index)
+  const handleEdit = (id) => {
+    navigate(`edit/${id}`);
+  };
+
+  // Navigate to delete page with assignment id (or index)
+  const handleDelete = (id) => {
+    navigate(`delete/${id}`);
+  };
+  
 
   return (
     <div className="overflow-x-auto h-screen p-4">
@@ -51,10 +65,13 @@ const TeacherAssTable = () => {
                   {row.submissions || "0/0"}
                 </td>
                 <td className="px-6 py-4 flex gap-2">
-                  <button className="px-3 py-1 text-sm bg-green-600 text-white rounded-lg hover:bg-green-700">
+                  <button
+                    onClick={() => handleEdit(rowIndex)}
+                    className="px-3 py-1 text-sm bg-green-600 text-white rounded-lg hover:bg-green-700"
+                  >
                     Edit
                   </button>
-                  <button className="px-3 py-1 text-sm bg-red-600 text-white rounded-lg hover:bg-red-700">
+                  <button onClick={() => handleDelete(rowIndex)} className="px-3 py-1 text-sm bg-red-600 text-white rounded-lg hover:bg-red-700">
                     Delete
                   </button>
                 </td>
