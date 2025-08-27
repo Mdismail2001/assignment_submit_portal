@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AssignmentCreate = ({ onSave, editingAssignment }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [deadline, setDeadline] = useState("");
+  const [success, setSuccess] = useState(false);
 
-  // Load existing assignments from localStorage
+  const navigate = useNavigate();
+
+  // Load existing assignment into form when editing
   useEffect(() => {
     if (editingAssignment) {
       setTitle(editingAssignment.title);
@@ -24,11 +28,11 @@ const AssignmentCreate = ({ onSave, editingAssignment }) => {
       deadline,
     };
 
-    // Get existing assignments from localStorage
+    // Get assignments from localStorage
     const storedAssignments =
       JSON.parse(localStorage.getItem("assignments")) || [];
 
-    // If editing → update, else add
+    // Update or add
     let updatedAssignments;
     if (editingAssignment) {
       updatedAssignments = storedAssignments.map((a) =>
@@ -38,44 +42,66 @@ const AssignmentCreate = ({ onSave, editingAssignment }) => {
       updatedAssignments = [...storedAssignments, newAssignment];
     }
 
-    // Save back to localStorage
+    // Save back
     localStorage.setItem("assignments", JSON.stringify(updatedAssignments));
 
-    // Pass back to parent (optional for UI refresh)
     if (onSave) onSave(newAssignment);
 
-    // Clear form
+    // Show success message
+    setSuccess(true);
+
+    // Reset form
     setTitle("");
     setDescription("");
     setDeadline("");
+
+    // Navigate after 1s
+    setTimeout(() => {
+      navigate("/teacher-dashboard/ass-table");
+    }, 1000);
   };
+
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 p-4 bg-gray-100 rounded-lg">
-      <input
-        type="text"
-        placeholder="Assignment Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        required
-        className="w-full p-2 border rounded"
-      />
-      <textarea
-        placeholder="Description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        className="w-full p-2 border rounded"
-      />
-      <input
-        type="date"
-        value={deadline}
-        onChange={(e) => setDeadline(e.target.value)}
-        required
-        className="w-full p-2 border rounded"
-      />
-      <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
-        {editingAssignment ? "Update Assignment" : "Add Assignment"}
-      </button>
-    </form>
+    <div className="p-6">
+      {success && (
+        <div className="mb-4 p-3 text-green-800 bg-green-100 border border-green-300 rounded-lg">
+          ✅ Assignment {editingAssignment ? "updated" : "created"} successfully!
+        </div>
+      )}
+
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-4 p-6 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md"
+      >
+        <input
+          type="text"
+          placeholder="Assignment Title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          required
+          className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-200"
+        />
+        <textarea
+          placeholder="Description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-200"
+        />
+        <input
+          type="date"
+          value={deadline}
+          onChange={(e) => setDeadline(e.target.value)}
+          required
+          className="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-200"
+        />
+        <button
+          type="submit"
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        >
+          {editingAssignment ? "Update Assignment" : "Add Assignment"}
+        </button>
+      </form>
+    </div>
   );
 };
 

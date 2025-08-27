@@ -1,5 +1,5 @@
 import React from 'react';
-import TeacherAssTable from '../dashboard/Teachers/TeacherAssTable';
+import TeacherAssTable from '../dashboard/Teachers/Assignments';
 import DashboardOverview from '../dashboard/Teachers/DashboardOverview';
 import { Outlet } from 'react-router-dom';
 

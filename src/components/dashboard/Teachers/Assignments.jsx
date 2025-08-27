@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const TeacherAssTable = () => {
+const Assignments = () => {
   const navigate = useNavigate();
 
   // Get assignments from localStorage
@@ -93,4 +93,4 @@ const TeacherAssTable = () => {
   );
 };
 
-export default TeacherAssTable;
+export default Assignments;

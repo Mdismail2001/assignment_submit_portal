@@ -21,7 +21,6 @@ import Footer from './components/sharedComponents/Footer.jsx';
 import Content from './components/sharedComponents/Content.jsx';
 import SideBar from './components/sharedComponents/SideBar.jsx';
 import PieChart from './components/pie_chart/PieChart.jsx';
-import TeacherAssTable from './components/dashboard/Teachers/TeacherAssTable.jsx';
 import ReviewPanel from './components/dashboard/Teachers/ReviewPanel.jsx';
 import DashboardOverview from './components/dashboard/Teachers/DashboardOverview.jsx';
 import AssignmentCreate from './components/dashboard/Teachers/AssignmentCreate.jsx';
@@ -30,6 +29,8 @@ import TotalSubmission from './components/dashboard/Teachers/TotalSubmission.jsx
 import Home from './components/home/Home.jsx';
 import Edit from './components/dashboard/Teachers/Edit.jsx';
 import Delete from './components/dashboard/Teachers/Delete.jsx';
+import Assignments from './components/dashboard/Teachers/Assignments.jsx';
+import ViewAssinments from './components/dashboard/Teachers/ViewAssinments.jsx';
 
 
 function App() {
@@ -48,13 +49,14 @@ function App() {
           <Route path="/student-dashboard" element={<StudentDash/>}/>
           <Route path="/teacher-dashboard" element={<TeacherDash/>}>
             <Route path='' element={<DashboardOverview/>}/>
-            <Route path='ass-table' element={<TeacherAssTable/>}/>
+            <Route path='ass-table' element={<Assignments/>}/>
             <Route path="ass-table/edit/:id" element={<Edit/>}/> 
             <Route path="ass-table/delete/:id" element={<Delete/>}/> 
             <Route path='review-panel' element={<ReviewPanel/>}/>
             <Route path='pie' element={<PieChart/>} />
             <Route path='create' element={<AssignmentCreate/>}/>
             <Route path='total-assignments' element={<TotalAssignments/>}/>
+            <Route path="total-assignments/total-assignments/:id" element={<ViewAssinments/>} />
             <Route path='total-submission' element={<TotalSubmission/>}/>
           </Route>
         </Routes>

@@ -1,15 +1,41 @@
-import React from "react";
-import { Link } from "react-router-dom"; 
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const DashboardOverview = () => {
-  // Demo stats data
-  const stats = [
-    { title: "Total Assignments", value: 0, color: "bg-blue-500", link:"total-assignments" },
-    { title: "Total Submissions", value: 0, color: "bg-indigo-500", link:"total-submission"  },
-    { title: "Create Assignment", value: 0, color: "bg-purple-500", link: "create" }, 
-    { title: "Accepted", value: 0, color: "bg-green-500" },
-    { title: "Rejected", value: 0, color: "bg-red-500" },
-    { title: "Pending", value: 0, color: "bg-yellow-500" },
+  const [stats, setStats] = useState({
+    totalAssignments: 0,
+    totalSubmissions: 0,
+    accepted: 0,
+    rejected: 0,
+    pending: 0,
+  });
+
+  useEffect(() => {
+    // ✅ Load assignments from localStorage
+    const assignments = JSON.parse(localStorage.getItem("assignments")) || [];
+    const submissions = JSON.parse(localStorage.getItem("submissions")) || [];
+
+    // Count status
+    const accepted = submissions.filter((s) => s.status === "accepted").length;
+    const rejected = submissions.filter((s) => s.status === "rejected").length;
+    const pending = submissions.filter((s) => s.status === "pending").length;
+
+    setStats({
+      totalAssignments: assignments.length,
+      totalSubmissions: submissions.length,
+      accepted,
+      rejected,
+      pending,
+    });
+  }, []); // runs once when page loads
+  // ✅ Cards data linked to stats
+  const cards = [
+    { title: "Total Assignments", value: stats.totalAssignments, color: "bg-blue-500", link: "total-assignments" },
+    { title: "Total Submissions", value: stats.totalSubmissions, color: "bg-indigo-500", link: "total-submission" },
+    { title: "Create Assignment", value: stats.totalAssignments, color: "bg-purple-500", link: "create" },
+    { title: "Accepted", value: stats.accepted, color: "bg-green-500" },
+    { title: "Rejected", value: stats.rejected, color: "bg-red-500" },
+    { title: "Pending", value: stats.pending, color: "bg-yellow-500" },
   ];
 
   return (
@@ -20,7 +46,7 @@ const DashboardOverview = () => {
 
       {/* Cards Grid */}
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-        {stats.map((item, index) => {
+        {cards.map((item, index) => {
           const card = (
             <div
               key={index}
