@@ -1,16 +1,22 @@
-import React from 'react';
 import Header from '../../sharedComponents/Header';
-import Footer from '../../sharedComponents/Footer';
 import Content from '../../sharedComponents/Content';
 import SideBar from '../../sharedComponents/SideBar';
 
 const StudentDash = () => {
     return (
-        <div>
+        <div className="h-screen flex flex-col">
             <Header headTitle={"Students Dashboard"}/>
-            <div className='flex '>
-            <SideBar sidTitle1={"Student Dashboard"} sidTitle2={"Assignments"} sidTitle3={"My Submissions"} sidTitle4={"Status"}/>
+
+            <div className="flex flex-1 overflow-hidden">
+            <SideBar 
+            sidTitle1={"Dashboard Overview"} 
+            sidTitle2={"Assignments"} 
+            sidTitle3={"My Submissions"} 
+            sidTitle4={"Status"}/>
+
+            <div className="flex-1 overflow-y-auto">
             <Content/>  
+            </div>
             </div>
         </div>
     );

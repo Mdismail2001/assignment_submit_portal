@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const DashboardOverview = () => {
+const OverView = () => {
   const [stats, setStats] = useState({
     totalAssignments: 0,
     totalSubmissions: 0,
@@ -30,12 +30,12 @@ const DashboardOverview = () => {
   }, []); // runs once when page loads
   // ✅ Cards data linked to stats
   const cards = [
-    { title: "Total Assignments", value: stats.totalAssignments, color: "bg-blue-500", link: "total-assignments" },
-    { title: "Total Submissions", value: stats.totalSubmissions, color: "bg-indigo-500", link: "total-submission" },
-    { title: "Create Assignment", value: stats.totalAssignments, color: "bg-purple-500", link: "create" },
-    { title: "Accepted", value: stats.accepted, color: "bg-green-500" },
-    { title: "Rejected", value: stats.rejected, color: "bg-red-500" },
-    { title: "Pending", value: stats.pending, color: "bg-yellow-500" },
+    { title: "Available Assignments", value:'0', color: "bg-blue-500", link: "available-ass" },
+    { title: "Total Submitted", value:'0', color: "bg-indigo-500", link: "total-submitted" },
+    // { title: "Submitted", value: stats.totalAssignments, color: "bg-purple-500", link: "create" },
+    // { title: "Accepted", value: stats.accepted, color: "bg-green-500" },
+    // { title: "Rejected", value: stats.rejected, color: "bg-red-500" },
+    // { title: "Pending", value: stats.pending, color: "bg-yellow-500" },
   ];
 
   return (
@@ -77,4 +77,4 @@ const DashboardOverview = () => {
   );
 };
 
-export default DashboardOverview;
+export default OverView;

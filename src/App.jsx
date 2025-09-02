@@ -25,12 +25,18 @@ import ReviewPanel from './components/dashboard/Teachers/ReviewPanel.jsx';
 import DashboardOverview from './components/dashboard/Teachers/DashboardOverview.jsx';
 import AssignmentCreate from './components/dashboard/Teachers/AssignmentCreate.jsx';
 import TotalAssignments from './components/sharedComponents/TotalAssignments.jsx';
-import TotalSubmission from './components/dashboard/Teachers/TotalSubmission.jsx';
+import TotalSubmission from './components/sharedComponents/TotalSubmission.jsx';
 import Home from './components/home/Home.jsx';
 import Edit from './components/dashboard/Teachers/Edit.jsx';
 import Delete from './components/dashboard/Teachers/Delete.jsx';
 import Assignments from './components/dashboard/Teachers/Assignments.jsx';
-import ViewAssinments from './components/dashboard/Teachers/ViewAssinments.jsx';
+import ViewAssinments from './components/sharedComponents/ViewAssinments.jsx';
+import ViewSubmission from './components/sharedComponents/ViewSubmission.jsx';
+import OverView from './components/dashboard/Students/OverView.jsx';
+import AvailableAssignments from './components/dashboard/Students/AvailableAssignments.jsx';
+import Views from './components/dashboard/Students/ViewAssignmet.jsx';
+import SubmitAssignment from './components/dashboard/Students/SubmitAssignment.jsx';
+import TotalSubmitted from './components/dashboard/Students/TotalSubmitted.jsx';
 
 
 function App() {
@@ -46,7 +52,15 @@ function App() {
           <Route path="/sidebar" element={<SideBar/>} />
           <Route path='/content' element={< Content/>} />
           <Route path='/footer' element={<Footer/>} />
-          <Route path="/student-dashboard" element={<StudentDash/>}/>
+          <Route path="/student-dashboard" element={<StudentDash/>}>          
+            <Route path='' element={<OverView/>}/>
+            <Route path='available-ass' element={<AvailableAssignments/>}/>
+            <Route path='available-ass/views' element={<Views/>}/>
+            <Route path='available-ass/views/submit' element={<SubmitAssignment/>} />
+            <Route path='total-submitted' element={<TotalSubmitted/>}/>
+          </Route>
+
+
           <Route path="/teacher-dashboard" element={<TeacherDash/>}>
             <Route path='' element={<DashboardOverview/>}/>
             <Route path='ass-table' element={<Assignments/>}/>
@@ -58,7 +72,9 @@ function App() {
             <Route path='total-assignments' element={<TotalAssignments/>}/>
             <Route path="total-assignments/total-assignments/:id" element={<ViewAssinments/>} />
             <Route path='total-submission' element={<TotalSubmission/>}/>
+            <Route path="total-submission/total-submission/:id" element={<ViewSubmission/>} />
           </Route>
+          
         </Routes>
       </BrowserRouter>
     </>
